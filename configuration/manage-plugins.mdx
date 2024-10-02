@@ -1,0 +1,111 @@
+---
+title: 'Manage Plugins'
+description: 'Learn how to effectively manage and configure plugins in NyxVim using lazy.nvim'
+---
+
+## Overview
+
+NyxVim leverages [lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin management. This powerful tool allows for lazy loading and easy configuration of plugins.
+
+<Info>
+  Check out the [list of default plugins](https://github.com/NyxVim/NyxVim/tree/main/lua/nyxvim/plugins) included in NyxVim.
+</Info>
+
+## Lazy Loading
+
+We employ lazy loading for approximately 95% of our plugins to optimize startup time. We strongly recommend that you follow this practice when adding your own plugins.
+
+<Warning>
+  Failing to lazy load plugins can significantly slow down NyxVim's startup time.
+</Warning>
+
+To implement lazy loading effectively:
+
+1. Familiarize yourself with the [lazy.nvim plugin specs](https://github.com/folke/lazy.nvim#-plugin-spec).
+2. Utilize available options for lazy loading in your plugin configurations.
+3. Always strive to lazy-load plugins when possible.
+
+## Managing Plugins
+
+All default NyxVim plugins are set with `lazy = true`. If you want a plugin to load at startup, you need to set `lazy = false`.
+
+### Plugin Configuration
+
+Create a file named `plugins/custom.lua` (or any other name) with the following structure:
+
+```lua
+local plugins = {
+  -- Your plugin configurations go here
+}
+
+return plugins
+```
+
+### Plugin Configuration Examples
+
+Here are some examples of how to configure plugins:
+
+<CodeGroup>
+
+```lua Load at Startup
+{ "elkowar/yuck.vim", lazy = false }
+```
+
+```lua Disable a Plugin
+{ "folke/which-key.nvim", enabled = false }
+```
+
+```lua Lazy Load with Command
+{
+  "Pocco81/TrueZen.nvim",
+  cmd = { "TZAtaraxis", "TZMinimalist" },
+  config = function()
+    require "configs.truezen" -- example path
+  end,
+}
+```
+
+```lua Extend Default Options
+{
+  "nvim-treesitter/nvim-treesitter",
+  opts = {
+    ensure_installed = {"html", "css", "bash"},
+  },
+}
+```
+
+```lua Function-based Configuration
+{
+  "nvim-telescope/telescope.nvim",
+  opts = function()
+    local conf = require "nyxvim.configs.telescope"
+    conf.defaults.mappings.i = {
+      ["<C-j>"] = require("telescope.actions").move_selection_next,
+      ["<Esc>"] = require("telescope.actions").close,
+    }
+    return conf
+  end,
+}
+```
+
+</CodeGroup>
+
+## Best Practices
+
+1. **Lazy Load**: Always try to lazy load plugins when possible.
+2. **Minimal Configuration**: Only override necessary options to keep configurations clean.
+3. **Use Built-in Features**: Leverage lazy.nvim's built-in features for efficient plugin management.
+4. **Document Your Changes**: Add comments to explain any complex configurations or overrides.
+
+<Tip>
+  Remember to run `:Lazy sync` after making changes to your plugin configurations to ensure all changes are applied.
+</Tip>
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).

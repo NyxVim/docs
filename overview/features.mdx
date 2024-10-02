@@ -1,0 +1,182 @@
+---
+title: "NyxVim Features"
+description: "A comprehensive guide to the powerful features that make NyxVim stand out"
+---
+
+## Introduction
+
+NyxVim is built upon a foundation of carefully selected plugins and custom-built features. This guide will walk you through the key features that make NyxVim a powerful and user-friendly Neovim distribution.
+
+<Info>
+  NyxVim aims to provide a balance between functionality and performance, ensuring a smooth editing experience even with its rich feature set.
+</Info>
+
+## Core Features
+
+### Base46: The Theming Engine
+
+Base46 is NyxVim's high-performance theming plugin, offering a wide range of customization options.
+
+<Accordion title="How Base46 Works">
+1. Collects highlight groups from various sources
+2. Processes overrides, new groups, and custom themes
+3. Compiles everything into efficient bytecode
+4. Lazy-loads integration files for optimal performance
+</Accordion>
+
+<Tip>
+  You can dynamically reload UI-related options in your configuration file. This allows for real-time theme adjustments!
+</Tip>
+
+Here's a video demonstrating the dynamic theme reloading:
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/xytzreFq_us"
+  title="Base46 Theme Reloading"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+></iframe>
+
+### Theme Switcher
+
+NyxVim includes a theme switcher that integrates with telescope.nvim, allowing you to preview and switch themes on the fly.
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/wt7IX8ojMrs"
+  title="NyxVim Theme Switcher"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+></iframe>
+
+### Statusline
+
+NyxVim's statusline module offers four distinct styles to suit your preferences:
+
+![NyxVim Statusline Styles](/images/statuslines.webp)
+
+<Tip>
+  You can customize the statusline further by modifying its components in your configuration file.
+</Tip>
+
+### Tabufline
+
+The tabufline in NyxVim combines the functionality of a tabline and a bufferline:
+
+- Manages both buffers and tabs
+- Clickable buttons for easy navigation
+- Each tab has its own set of buffers, similar to workspaces in modern operating systems
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/V_9iJ96U_k8"
+  title="NyxVim Tabufline Demo"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+></iframe>
+
+### Terminal Integration
+
+NyxVim's terminal module provides powerful terminal management within Neovim:
+
+- Create new terminal windows (floating, horizontal, or vertical)
+- Toggle terminal windows on/off
+- Dedicated terminal for running code
+- Customizable window size, command, and highlight group for each terminal
+- Telescope integration for managing hidden terminal buffers
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/3DysWI_6YpQ"
+  title="NyxVim Terminal Features"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+></iframe>
+
+<Tip>
+  Access the terminal picker quickly with the keybinding `<leader>pt`.
+</Tip>
+
+### Nvdash: Minimal Dashboard
+
+Nvdash is NyxVim's simple yet effective dashboard module:
+
+![Nvdash Dashboard](/images/nvdash.webp)
+
+<Info>
+  You can customize Nvdash by modifying the `nvdash` settings in your configuration file.
+</Info>
+
+### NvCheatsheet
+
+NvCheatsheet provides an auto-generated mappings cheatsheet with two theme options:
+
+![NvCheatsheet](/images/nvcheatsheet.webp)
+
+Access the cheatsheet with the command `:NyxCheatsheet` or the keybinding `<leader>ch`.
+
+## Integrated Plugins
+
+NyxVim incorporates several popular Neovim plugins, enhancing them with custom configurations and theming:
+
+### Telescope.nvim
+
+A highly extensible fuzzy finder:
+
+![Telescope in NyxVim](/images/telescope.webp)
+
+### Nvim-tree.lua
+
+A file explorer tree for Neovim:
+
+![Nvim-tree in NyxVim](/images/nvimtree.webp)
+
+### Nvim-cmp
+
+A completion plugin with multiple style options:
+
+![Nvim-cmp in NyxVim](/images/cmp.webp)
+
+### LSP and Auto-completion
+
+NyxVim uses nvim-lspconfig for Language Server Protocol support and luasnip with friendly-snippets for snippet completion:
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/oMzMDXA-VO0"
+  title="LSP and Auto-completion in NyxVim"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+></iframe>
+
+### Additional Plugins
+
+NyxVim also includes:
+
+- lazy.nvim: A modern plugin manager
+- whichkey.nvim: Displays possible key bindings
+- nvim-colorizer.lua: Fast syntax highlighting
+- nvim-treesitter: Advanced syntax highlighting and code analysis
+- indent-blankline.nvim: Indentation guides
+- gitsigns.nvim: Git integration for buffers
+- nvim-autopairs: Automatic bracket pairing
+- mason.nvim: Package manager for LSP servers, DAP servers, linters, and formatters
+- conform.nvim: Lightweight formatter plugin
+
+<Tip>
+  Most of these plugins are lazy-loaded, ensuring that NyxVim starts up quickly despite its rich feature set.
+</Tip>
+
+## Conclusion
+
+NyxVim combines powerful custom features with carefully selected and configured plugins to create a feature-rich, yet performant Neovim distribution. Whether you're a seasoned Vim user or new to the ecosystem, NyxVim provides the tools you need for an efficient and enjoyable coding experience.
+
+<Info>
+  Remember, most features in NyxVim are customizable. Don't hesitate to explore the configuration options to tailor NyxVim to your specific needs!
+</Info>

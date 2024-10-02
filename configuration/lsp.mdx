@@ -1,0 +1,129 @@
+---
+title: 'LSP Configuration'
+description: 'Learn how to set up and configure Language Server Protocols (LSP) and mason.nvim in NyxVim'
+---
+
+## Introduction to LSP
+
+Language Server Protocol (LSP) is a powerful feature that provides intelligent code completion, diagnostics, and more. NyxVim makes it easy to configure and use LSP for various programming languages.
+
+<Info>
+  Before diving into LSP configuration, it's recommended to familiarize yourself with the basics of LSP and its benefits for development.
+</Info>
+
+## Setting Up LSP Servers
+
+To get started with LSP configuration in NyxVim:
+
+1. Review the [lspconfig repository](https://github.com/neovim/nvim-lspconfig) for general LSP setup information.
+2. Check the [configs.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md) to ensure your language's LSP server is supported.
+
+### Plugin Configuration
+
+To modify the `lspconfig` setup, add the following to your plugin configuration:
+
+<CodeGroup>
+
+```lua Plugin Table
+{
+  "neovim/nvim-lspconfig",
+   config = function()
+      require("nyxvim.configs.lspconfig").defaults()
+      require "configs.lspconfig"
+   end,
+},
+```
+
+</CodeGroup>
+
+### LSP Server Configuration
+
+Create a file named `configs/lspconfig.lua` with the following structure:
+
+<CodeGroup>
+
+```lua configs/lspconfig.lua
+local configs = require("nyxvim.configs.lspconfig")
+
+local on_attach = configs.on_attach
+local on_init = configs.on_init
+local capabilities = configs.capabilities
+
+local lspconfig = require "lspconfig"
+local servers = { "html", "cssls", "clangd"}
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_init = on_init,
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  The loop in the configuration above allows you to set up multiple LSP servers efficiently. Without it, you'd need to manually configure each server individually.
+</Tip>
+
+## Mason.nvim Integration
+
+[mason.nvim](https://github.com/williamboman/mason.nvim) is a powerful tool for managing LSP servers, DAP servers, linters, and formatters in Neovim.
+
+To install LSP servers and tools using Mason:
+
+1. Open NyxVim
+2. Run the command `:MasonInstallAll`
+
+<Warning>
+  After installing binaries with Mason, you'll need to configure them to work properly with LSP, conform.nvim, nvim-lint, nvim-dap, etc. The specific configuration depends on what you've installed.
+</Warning>
+
+<Info>
+  NyxVim provides language configuration for Lua out of the box. For other languages, you'll need to set up the configuration yourself.
+</Info>
+
+## Customizing LSP Behavior
+
+You can customize LSP behavior by modifying the `on_attach` function or adjusting server-specific settings. Here's an example of how you might customize the HTML LSP server:
+
+<CodeGroup>
+
+```lua Custom HTML LSP Config
+lspconfig.html.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "html", "templ" },  -- Add support for templ files
+  init_options = {
+    configurationSection = { "html", "css", "javascript" },
+    embeddedLanguages = {
+      css = true,
+      javascript = true
+    },
+  }
+}
+```
+
+</CodeGroup>
+
+## Troubleshooting
+
+If you encounter issues with LSP:
+
+1. Check the `:LspInfo` command output for server status
+2. Verify that the LSP server is installed correctly
+3. Review your configuration for any errors
+
+<Tip>
+  Use `:checkhealth` in NyxVim to diagnose potential issues with your setup, including LSP-related problems.
+</Tip>
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).
