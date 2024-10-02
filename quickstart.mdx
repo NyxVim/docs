@@ -1,86 +1,107 @@
 ---
 title: 'Quickstart'
-description: 'Start building awesome documentation in under 5 minutes'
+description: 'Learn how to get started with NyxVim.'
 ---
 
-## Setup your development
+## Prerequisites
 
-Learn how to update your docs locally and deploy them to the public.
+- [Nerd Font](https://www.nerdfonts.com/font-downloads) as terminal font
+  - Make sure the Nerd Font doesn't end with Mono to avoid small icons.
+  - Example: JetbrainsMono Nerd Font and not ~~JetbrainsMono Nerd Font Mono~~
+- [Ripgrep](https://github.com/BurntSushi/ripgrep) is required for grep search with Telescope (OPTIONAL)
 
-### Edit and preview
+### For MacOS
+- Git
+- Brew
+- unzip
 
-<AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `mint.json` is): ``` mintlify dev ```
-  </Accordion>
-</AccordionGroup>
+### For Linux (Ubuntu, Arch, Fedora, and WSL2)
+- Git
+- unzip
 
-### Deploy your changes
+### For Windows
+- Git
+- unzip
+- GCC, Windows users must have `mingw` installed and set in the path.
+- Make, Windows users must have `GnuWin32` installed and set in the path.
+
+### Install
 
 <AccordionGroup>
+  <Accordion icon="apple" title="MacOS">
+    ```bash
+    curl -L https://nyxvim.one/install | bash
+    ```
+    This command will install neovim, its peer dependencies and everything needed for your Better Vim setup.
+  </Accordion>
+  <Accordion icon="linux" title="Linux">
+    ```bash
+    curl -L https://nyxvim.one/install | bash
+      ```
+      This command will install neovim, its peer dependencies and everything needed for your Better Vim setup.
+   </Accordion>
+  <Accordion icon="windows" title="Windows">
+    If you're using Command Prompt(CMD)
+    ```bash
+    git clone https://github.com/NyxVim/windows %USERPROFILE%\AppData\Local\nvim && nvim
+    ```
+    If you're using PowerShell(pwsh)
+    ```bash
+    git clone https://github.com/NyxVim/windows $ENV:USERPROFILE\AppData\Local\nvim && nvim
+    ```
+    **If the above path doesnt work, try any of these:**
 
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
-</Accordion>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
-</Accordion>
-
+      For CMD : %LOCALAPPDATA%\nvim
+      ```bash
+      C:\Users\%USERNAME%\AppData\Local\nvim 
+      ```
+      For PowerShell : $ENV:LocalAppData + "\nvim"
+      ```bash
+      C:\Users\$ENV:USERNAME\AppData\Local\nvim 
+      ```
+   Run `:MasonInstallAll` command after lazy.nvim finishes downloading plugins.
+   Delete the `.git` folder from nvim folder.
+   </Accordion>
 </AccordionGroup>
 
-## Update your docs
+## Update 
 
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
+- Lazy sync command
 
-<CardGroup>
+### Uninstall
 
-<Card title="Style Your Docs" icon="paintbrush" href="/settings/global">
-  Add flair to your docs with personalized branding.
-</Card>
+<AccordionGroup>
+  <Accordion icon="apple" title="MacOS">
+    ```bash
+    curl -L https://nyxvim.one/uninstall | bash
+    ```
+    This command will uninstall neovim, its peer dependencies and everything needed for your Better Vim setup.
+  </Accordion>
+  <Accordion icon="linux" title="Linux">
+    ```bash
+    curl -L https://nyxvim.one/uninstall | bash
+      ```
+      This command will uninstall neovim, its peer dependencies and everything needed for your Better Vim setup.
+   </Accordion>
+  <Accordion icon="windows" title="Windows">
+    ### Windows CMD
+    ```bash
+    rd -r ~\AppData\Local\nvim
+    rd -r ~\AppData\Local\nvim-data
+    ```
+    ### Windows PowerShell
+    ```bash
+    rm -Force ~\AppData\Local\nvim
+    rm -Force ~\AppData\Local\nvim-data
+    ```
+   </Accordion>
+</AccordionGroup>
 
-<Card
-  title="Add API Endpoints"
-  icon="square-code"
-  href="/api-playground/configuration"
->
-  Implement your OpenAPI spec and enable API user interaction.
-</Card>
+## Testing your setup
 
-<Card
-  title="Integrate Analytics"
-  icon="chart-mixed"
-  href="/analytics/supported-integrations"
->
-  Draw insights from user interactions with your documentation.
-</Card>
+Open your terminal in a project and type nvim. You’ll see a screen like that:
 
-<Card
-  title="Host on a Custom Domain"
-  icon="browser"
-  href="/settings/custom-domain/subdomain"
->
-  Keep your docs on your own website's subdomain.
-</Card>
+![NyxVim Dashboard](/images/nyxvim-dashboard.png)
 
-</CardGroup>
+If you can see the screen above, you’re ready to go 🚀
+

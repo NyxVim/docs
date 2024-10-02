@@ -7,45 +7,40 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#9945FF",
+    "light": "#9945FF",
+    "dark": "#9945FF",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#9945FF",
+      "to": "#14F195"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:hello@nyxvim.one"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Donate",
+    "url": "https://nyxvim.gives"
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Donate",
+      "url": "https://nyxb.gives"
     }
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "Discussions",
+      "icon": "github",
+      "url": "https://github.com/NyxVim/NyxVim/discussions"
     },
     {
       "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "icon": "discord",
+      "url": "https://nyxb.space/"
     }
   ],
   "navigation": [
@@ -54,32 +49,29 @@
       "pages": [
         "introduction",
         "quickstart",
-        "development"
+        "post-install",
+        "learn-basic-lua"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Configuration",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "configuration/walkthrough",
+        "configuration/manage-plugins",
+        "configuration/lsp",
+        "configuration/mappings",
+        "configuration/snippets",
+        "configuration/ui",
+        "configuration/theming"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Overview",
       "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "overview/features",
+        "overview/recipes",
+        "overview/contribute",
+        "overview/faq"
       ]
     }
   ],
