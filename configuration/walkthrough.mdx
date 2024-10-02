@@ -1,0 +1,60 @@
+---
+title: Walkthrough
+description: Understanding the structure and components of NyxVim
+---
+
+# How does NyxVim work?
+
+NyxVim's starter repo is the actual config, and it uses the main NyxVim repo as a plugin.
+
+<CardGroup cols={2}>
+  <Card title="NyxVim" icon="code-branch" href="https://github.com/nyxvim/nyxvim">
+    This is the main repo for NyxVim and its development.
+    It contains all the plugins, options, mappings, autocmds
+    All of its modules are in `/nyxvim`
+  </Card>
+  <Card title="Starter (Windows)" icon="play" href="https://github.com/nyxvim/windows">
+    Config which uses the NyxVim repo as a plugin
+    Users will be using the starter config as a base
+    Imports NyxVim modules, e.g., `require("nyxvim.options")`
+  </Card>
+</CardGroup>
+
+<Card title="Nyxrc.lua" icon="gear" href="https://github.com/NyxVim/ui/blob/main/lua/nyxconfig.lua">
+  Used to configure UI & base46 plugin
+  Meant to have the structure of `nyxconfig.lua`
+  Should be in your config's `/lua` folder
+</Card>
+
+## Themes
+
+You can see all the themes with the following keymap: `<leader> + th`.
+
+<Tip>
+The `leader key` is the `space` in NyxVim.
+</Tip>
+
+## Mappings
+
+If you want to know all the keymaps, you can run the following commands:
+
+<CardGroup cols={2}>
+  <Card title="NyxCheatsheet" icon="book-open">
+    Run `:NyxCheatsheet` to see a quick overview of keymaps
+    Provides a concise summary of essential shortcuts
+  </Card>
+  <Card title="Telescope keymaps" icon="telescope">
+    Run `:Telescope keymaps` for a searchable list of all keymaps
+    Offers a comprehensive, filterable view of all available keybindings
+    Allows for easy discovery and lookup of specific commands
+  </Card>
+</CardGroup>
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).

@@ -1,0 +1,164 @@
+---
+title: "Recipes"
+description: "A collection of useful configuration snippets and tips for NyxVim users"
+---
+
+## Overview
+
+This page contains a curated list of useful configuration snippets, plugin setups, and Vim tricks shared by the NyxVim community. These recipes can help you enhance your NyxVim experience and streamline your workflow.
+
+<Info>
+  Feel free to contribute your own recipes by submitting a pull request to our documentation repository!
+</Info>
+
+## LSP Configuration
+
+### Clean LSPConfig Syntax
+
+If you have multiple servers configured in your LSPConfig, you can use a table and loop through them for a cleaner syntax:
+
+<CodeGroup>
+
+```lua Clean LSPConfig
+local configs = require "nyxvim.configs.lspconfig"
+
+local servers = {
+  html = {},
+  awk_ls = {},
+  bashls = {},
+
+  pyright = {
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          typeCheckingMode = "basic",
+        },
+      },
+    },
+  },
+}
+
+for name, opts in pairs(servers) do
+  opts.on_init = configs.on_init
+  opts.on_attach = configs.on_attach
+  opts.capabilities = configs.capabilities
+
+  require("lspconfig")[name].setup(opts)
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  This approach makes it easier to manage multiple LSP servers and keeps your configuration DRY (Don't Repeat Yourself).
+</Tip>
+
+## Terminal Customization
+
+### Dynamic Terminal Padding
+
+For a better visual experience, you can dynamically adjust terminal padding when NyxVim is opened or closed:
+
+<CodeGroup>
+
+```lua Dynamic Padding
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd("VimEnter", {
+  command = ":silent !kitty @ set-spacing padding=0 margin=0",
+})
+
+autocmd("VimLeavePre", {
+  command = ":silent !kitty @ set-spacing padding=20 margin=10",
+})
+```
+
+</CodeGroup>
+
+<Warning>
+  This example is specific to the Kitty terminal. Adjust the commands accordingly for other terminal emulators.
+</Warning>
+
+## Vim Enhancements
+
+### Restore Cursor Position
+
+This autocmd will restore the cursor position when reopening a file:
+
+<CodeGroup>
+
+```lua Restore Cursor
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    local line = vim.fn.line "'\""
+    if
+      line > 1
+      and line <= vim.fn.line "$"
+      and vim.bo.filetype ~= "commit"
+      and vim.fn.index({ "xxd", "gitrebase" }, vim.bo.filetype) == -1
+    then
+      vim.cmd 'normal! g`"'
+    end
+  end,
+})
+```
+
+</CodeGroup>
+
+## WSL-Specific Configurations
+
+### Clipboard in WSL without xclip
+
+For WSL users, you can use the Windows clipboard for the `+` and `*` registers without xclip:
+
+<CodeGroup>
+
+```lua WSL Clipboard
+vim.g.clipboard = {
+  name = 'WslClipboard',
+  copy = {
+    ['+'] = 'clip.exe',
+    ['*'] = 'clip.exe',
+  },
+  paste = {
+    ['+'] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    ['*'] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+  },
+  cache_enabled = 0,
+}
+```
+
+</CodeGroup>
+
+<Tip>
+  If you're using the default PowerShell, replace `pwsh.exe` with `powershell.exe`.
+</Tip>
+
+## Best Practices
+
+1. **Modularize Your Config**: Keep your configuration organized by splitting it into logical modules.
+2. **Comment Your Code**: Add comments to explain complex configurations or non-obvious choices.
+3. **Use Lua**: Prefer Lua over Vimscript for better performance and maintainability.
+4. **Lazy Load**: Whenever possible, lazy load plugins to improve startup time.
+
+## Troubleshooting
+
+If you encounter issues with these recipes:
+
+1. Ensure that you've placed the code in the correct configuration file.
+2. Check for any conflicting plugins or existing configurations.
+3. Verify that all required plugins are installed and up to date.
+4. Use `:checkhealth` to diagnose potential issues.
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).

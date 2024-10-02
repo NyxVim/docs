@@ -1,0 +1,136 @@
+---
+title: 'Key Mappings'
+description: 'Learn how to manage and customize key mappings in NyxVim'
+---
+
+## Overview
+
+Key mappings are a crucial part of any Neovim configuration, allowing you to customize your editing experience. NyxVim provides a set of default mappings and makes it easy to add or modify them.
+
+<Info>
+  The default mappings are defined in the [NyxVim mappings file](https://github.com/NyxVim/NyxVim/blob/main/lua/nyxvim/mappings.lua).
+</Info>
+
+## Mapping Conventions
+
+NyxVim uses the following conventions for key names:
+
+<CodeGroup>
+
+```markdown Key Conventions
+- `<C>` -> Ctrl
+- `<leader>` -> Space
+- `<A>` -> Alt
+- `<S>` -> Shift
+```
+
+</CodeGroup>
+
+## Mapping Format
+
+NyxVim uses `vim.keymap.set` for defining mappings. Here's the basic syntax:
+
+<CodeGroup>
+
+```lua Basic Mapping
+vim.keymap.set(mode, lhs, rhs, opts)
+```
+
+</CodeGroup>
+
+Where:
+- `mode`: The mode where the mapping is active (e.g., "n" for normal mode)
+- `lhs`: The key combination to trigger the mapping
+- `rhs`: The command or function to execute
+- `opts`: Additional options (optional)
+
+<Tip>
+  The `desc` option in `opts` is used by NvCheatsheet to document the mapping. The first word in `desc` will be used as the group heading.
+</Tip>
+
+## Example Mappings
+
+Here are some example mappings to illustrate different use cases:
+
+<CodeGroup>
+
+```lua Simple Command Mapping
+local map = vim.keymap.set
+
+map("n", "<leader>ff", "<cmd> Telescope find_files <cr>", { desc = "Find files" })
+```
+
+```lua Multiple Modes Mapping
+map({ "i", "n" }, "<C-k>", "<Up>", { desc = "Move up" })
+```
+
+```lua Lua Function Mapping
+map("n", "<A-i>", function()
+   -- Your Lua code here
+end, { desc = "Terminal toggle floating" })
+```
+
+```lua Disable Mapping
+local nomap = vim.keymap.del
+
+nomap("i", "<C-k>")
+nomap("n", "<C-k>")
+```
+
+</CodeGroup>
+
+## Extending Default Configurations
+
+You can extend default configurations for plugins like Telescope. Here's an example:
+
+<CodeGroup>
+
+```lua Extend Telescope Config
+{
+  "nvim-telescope/telescope.nvim",
+  opts = function()
+    local conf = require "nyxvim.configs.telescope"
+
+    conf.defaults.mappings.i = {
+      ["<C-j>"] = require("telescope.actions").move_selection_next,
+      ["<Esc>"] = require("telescope.actions").close,
+    }
+
+    return conf
+  end,
+}
+```
+
+</CodeGroup>
+
+<Warning>
+  LSP and gitsigns mappings won't be overridden by the above methods because they are lazy loaded. Place LSP mappings in an `LspAttach` autocmd or right after your `on_attach` function.
+</Warning>
+
+## Best Practices
+
+1. **Consistency**: Try to maintain consistency with existing mappings.
+2. **Descriptive Names**: Use descriptive names in the `desc` option for clarity.
+3. **Avoid Conflicts**: Be careful not to override important default mappings.
+4. **Mode-Specific**: Use mode-specific mappings when appropriate.
+
+## Troubleshooting
+
+If your mappings aren't working as expected:
+
+1. Check for conflicts with other plugins or mappings.
+2. Verify the mode in which you're trying to use the mapping.
+3. Use `:verbose map <key>` to see if the mapping is being overridden.
+
+<Tip>
+  Use the NvCheatsheet (accessible via `<leader>ch`) to view all your current mappings at a glance.
+</Tip>
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).

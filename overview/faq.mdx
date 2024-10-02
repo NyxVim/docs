@@ -1,0 +1,120 @@
+---
+title: "FAQ"
+description: "Common questions and answers about NyxVim"
+---
+
+## General Questions
+
+<Accordion title="What is NyxVim?">
+  NyxVim is a feature-rich, customizable Neovim distribution designed to enhance your coding experience. It combines carefully selected plugins with custom features to provide a powerful yet user-friendly editing environment.
+</Accordion>
+
+<Accordion title="Is NyxVim suitable for beginners?">
+  While NyxVim is designed to be user-friendly, it's recommended to have some familiarity with Vim/Neovim basics before using it. We provide a [Getting Started](/getting-started) guide to help new users.
+</Accordion>
+
+## Setup and Configuration
+
+<Accordion title="How do I install NyxVim?">
+  Please refer to our [Installation Guide](/installation) for detailed instructions on how to install NyxVim on your system.
+</Accordion>
+
+<Accordion title="Can I remove base46?">
+  No, NyxVim hard-depends on base46 for its theming capabilities. If you prefer not to use base46, you might want to consider a different Neovim configuration.
+</Accordion>
+
+## Appearance and Theming
+
+<Accordion title="Icons not working">
+  To ensure icons display correctly:
+  
+  1. Set up a [Nerd Font](https://www.nerdfonts.com/#home) as your terminal's default font.
+  2. Make sure your terminal supports Unicode characters.
+</Accordion>
+
+<Accordion title="How do I set highlight groups?">
+  To modify highlight groups:
+  
+  - Use `hl_override` in your configuration to override existing highlight groups.
+  - Use `hl_add` to add new highlight groups.
+  
+  For detailed information, check our [Theming Documentation](/configuration/theming#hl_override).
+</Accordion>
+
+<Accordion title="How can I customize theme colors?">
+  Use the `changed_themes` option in your configuration file. For more details, refer to our [Theming Documentation](/configuration/theming#customize_themes).
+</Accordion>
+
+<Accordion title="How do I create custom local base46 themes?">
+  To create a custom local theme in base46 format:
+  
+  1. Create a file at `/lua/themes/mytheme.lua`.
+  2. Define your theme colors in this file.
+  
+  For more information, check the [base46 documentation](https://github.com/NyxVim/base46/blob/main/README.md).
+</Accordion>
+
+## Keybindings and Mappings
+
+<Accordion title="How do I map Ctrl + o / i keys?">
+  In NyxVim, `<Tab>` and `<S-Tab>` are mapped by default, which can interfere with `<C-i>` mapping. To map these keys:
+  
+  1. Either disable `<Tab>` in your custom mappings file, or
+  2. Configure your terminal to send the correct key codes.
+  
+  For example, in Alacritty:
+  
+  ```yaml
+  key_bindings:
+    - { key: I, mods: Control, chars: "\x1b[105;6u" }
+  ```
+  
+  **Note**: Keymaps in NyxVim are case-sensitive. To delete a mapping, use lowercase `<tab>`:
+  
+  ```lua
+  local nomap = vim.keymap.del
+  nomap("n", "<tab>")
+  ```
+</Accordion>
+
+## Troubleshooting
+
+<Accordion title="NyxVim's color is weird">
+  This issue often occurs with terminals that don't support true color. If you're using the default macOS terminal, consider switching to [iTerm2](https://iterm2.com/) or another terminal that supports true color.
+</Accordion>
+
+<Accordion title="Syntax highlighting not working">
+  Ensure you have installed the Treesitter parser for the language you're working with. For example, to install the Lua parser:
+  
+  ```
+  :TSInstall lua
+  ```
+</Accordion>
+
+<Accordion title="CursorLine not showing">
+  By default, we set the cursorline to only highlight the number. To have the entire line highlighted, add this to your configuration:
+  
+  ```lua
+  vim.o.cursorlineopt = "both"
+  ```
+</Accordion>
+
+## Best Practices
+
+1. **Regular Updates**: Keep NyxVim and its plugins updated regularly for the best experience and latest features.
+2. **Backup Your Config**: Always backup your configuration before making significant changes.
+3. **Gradual Customization**: Start with the default configuration and customize gradually to understand each change's impact.
+4. **Read the Docs**: Familiarize yourself with our documentation to make the most of NyxVim's features.
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).
+
+<Info>
+  When asking for help, please provide as much relevant information as possible, including your NyxVim version, relevant parts of your configuration, and a clear description of the issue or question.
+</Info>

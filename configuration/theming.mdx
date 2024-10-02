@@ -1,0 +1,179 @@
+---
+title: "Theming"
+description: "Learn how to customize and create themes for NyxVim using base46"
+---
+
+## Overview
+
+NyxVim uses base46 for theming, providing a flexible and powerful way to customize the appearance of your editor. This guide will walk you through the process of overriding highlight groups, customizing existing themes, and creating your own themes.
+
+<Info>
+  Base46 is a color scheme manager that allows for easy creation and modification of themes in Neovim.
+</Info>
+
+## Overriding Highlight Groups
+
+You can override highlight groups to fine-tune the appearance of various elements in NyxVim.
+
+<Tip>
+  Before overriding, make sure to use a valid highlight group. You can check available groups in the [base46 integrations directory](https://github.com/NyxVim/base46/tree/main/lua/base46/integrations).
+</Tip>
+
+Here's an example of how to override highlight groups:
+
+<CodeGroup>
+
+```lua Override Highlights
+M.base46 = {
+   hl_override = {
+      Pmenu = { bg = "white" },
+      -- Pmenu = { bg = "#ffffff" }, -- Using hex color also works
+        
+      -- Lighten or darken colors
+      Normal = {
+        bg = {"black", 2} -- Lighten black by 2 steps
+      },
+
+      MyCustomHighlight = { -- Custom highlights are allowed
+         fg = "red",
+         bg = "darker_black"
+      }
+   },
+}
+```
+
+</CodeGroup>
+
+To add entirely new highlight groups, use `hl_add` instead of `hl_override`.
+
+<Warning>
+  When modifying highlight groups, you can only use variables from "base_30" in your theme file.
+</Warning>
+
+## Customizing Existing Themes
+
+You can customize existing themes by modifying their color values:
+
+<CodeGroup>
+
+```lua Customize Theme
+M.base46 = {
+   changed_themes = {
+      onedark = {
+         base_16 = {
+            base00 = "#mycol",
+         },
+         base_30 = {
+            red = "#mycol",
+            white = "#mycol",
+         },
+      },
+
+      nord = {
+         -- Add more theme customizations here
+      },
+   },
+}
+```
+
+</CodeGroup>
+
+## Creating Local Themes
+
+You can create your own themes by defining a new theme file:
+
+<CodeGroup>
+
+```lua Custom Theme
+-- File: /lua/themes/mytheme.lua
+
+local M = {}
+
+M.base_30 = {
+   -- Define 30 colors based on base_16
+}
+
+M.base_16 = {
+   -- Define 16 base colors
+}
+
+M.type = "dark" -- or "light"
+
+return M
+```
+
+</CodeGroup>
+
+After creating your theme, add it to your configuration:
+
+<CodeGroup>
+
+```lua Enable Custom Theme
+M.base46 = {
+   theme = "mytheme",
+}
+```
+
+</CodeGroup>
+
+<Warning>
+  Creating custom themes requires careful color selection to ensure good contrast and readability. Test your theme thoroughly in different contexts.
+</Warning>
+
+## Integrations
+
+Base46 uses integrations to compile highlight groups for various plugins and Neovim features. You can specify which integrations to load:
+
+<CodeGroup>
+
+```lua Integrations
+M.base46 = {
+  integrations = {
+    "blankline",
+    "cmp",
+    "git",
+    -- Add more integrations as needed
+  }
+}
+```
+
+</CodeGroup>
+
+To load the highlight groups, use the `dofile` function:
+
+<CodeGroup>
+
+```lua Load Highlights
+dofile(vim.g.base46_cache .. "cmp")
+```
+
+</CodeGroup>
+
+<Tip>
+  You can lazy-load integration highlights by placing the `dofile` call in the plugin's configuration function.
+</Tip>
+
+## Best Practices
+
+1. **Consistency**: Maintain a consistent color scheme across your theme.
+2. **Contrast**: Ensure sufficient contrast between foreground and background colors for readability.
+3. **Testing**: Test your theme in different lighting conditions and with various types of code.
+4. **Modularity**: Break down your theme into logical components (syntax, UI elements, etc.).
+
+## Troubleshooting
+
+If you encounter issues with your theme:
+
+1. Check for syntax errors in your theme file.
+2. Verify that all required colors are defined in both `base_30` and `base_16`.
+3. Use `:hi` command to inspect current highlight groups.
+4. Try clearing the base46 cache if changes aren't reflecting.
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).

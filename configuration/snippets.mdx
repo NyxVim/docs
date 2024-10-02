@@ -1,0 +1,113 @@
+---
+title: "Snippets"
+description: "Learn how to manage and use custom snippets in NyxVim using LuaSnip"
+---
+
+## Introduction to Snippets
+
+Snippets are powerful tools that allow you to quickly insert pre-defined code templates into your editor. NyxVim uses the `LuaSnip` plugin for handling snippets, providing a flexible and efficient snippet management system.
+
+<Info>
+  By default, NyxVim includes the `friendly-snippets` plugin, which offers a wide range of snippets for many programming languages.
+</Info>
+
+## LuaSnip Overview
+
+[LuaSnip](https://github.com/L3MON4D3/LuaSnip) is a snippet engine for Neovim written in Lua. It offers advanced features like:
+
+- Dynamic snippets
+- Conditional expansion
+- Nested snippets
+- And more!
+
+<Tip>
+  To get the most out of LuaSnip, we recommend reading the [official LuaSnip documentation](https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#loaders).
+</Tip>
+
+## Configuring Snippet Paths
+
+NyxVim provides global variables to specify the paths for your custom snippets. You can set these in your configuration:
+
+<CodeGroup>
+
+```lua VSCode Snippets
+-- For VSCode-style snippets (JSON files)
+vim.g.vscode_snippets_path = "your/snippets/path"
+```
+
+```lua SnipMate Snippets
+-- For SnipMate-style snippets
+vim.g.snipmate_snippets_path = "your/snippets/path"
+```
+
+```lua Lua Snippets
+-- For Lua-format snippets
+vim.g.lua_snippets_path = vim.fn.stdpath "config" .. "/lua/lua_snippets"
+```
+
+</CodeGroup>
+
+<Info>
+  `vim.fn.stdpath("config")` returns the path to your Neovim configuration folder.
+</Info>
+
+## Creating Custom Snippets
+
+To create your own snippets, you can use any of the supported formats (VSCode, SnipMate, or Lua). Here's an example of a Lua snippet:
+
+<CodeGroup>
+
+```lua Example Lua Snippet
+local ls = require("luasnip")
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+
+ls.add_snippets("all", {
+  s("ternary", {
+    -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
+    i(1, "cond"), t(" ? "), i(2, "then"), t(" : "), i(3, "else")
+  })
+})
+```
+
+</CodeGroup>
+
+This snippet creates a ternary operator template that can be used in any file type.
+
+## Using Snippets
+
+To use a snippet:
+
+1. Enter insert mode
+2. Type the snippet trigger
+3. Press the expansion key (usually `<Tab>`)
+
+<Tip>
+  You can use the `:LuaSnipListAvailable` command to see all available snippets for the current file type.
+</Tip>
+
+## Best Practices
+
+1. **Organize snippets**: Keep your snippets organized by language or purpose.
+2. **Use descriptive names**: Choose clear, descriptive names for your snippets.
+3. **Leverage dynamic snippets**: Use Lua's power to create dynamic, context-aware snippets.
+4. **Keep snippets DRY**: Avoid duplicating code in your snippets.
+
+## Troubleshooting
+
+If you're having issues with snippets:
+
+1. Check that the snippet path is correctly set
+2. Ensure the snippet file is in the correct format
+3. Verify that the snippet trigger is correct
+4. Use `:LuaSnipListAvailable` to check if the snippet is recognized
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).

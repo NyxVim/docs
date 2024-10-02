@@ -1,0 +1,166 @@
+---
+title: "UI Configuration"
+description: "Learn how to customize the user interface of NyxVim, including statusline, tabufline, and terminal"
+---
+
+## Overview
+
+NyxVim's UI plugin manages several key components of the user interface:
+
+- Statusline
+- Tabufline (bufferline + tablist)
+- NvDash (Minimal dashboard)
+- Term (terminal handling)
+
+<Info>
+  Customizing these components allows you to tailor NyxVim's appearance to your preferences and workflow needs.
+</Info>
+
+## Tabufline and Statusline
+
+Both the tabufline and statusline share a similar customization approach:
+
+- The `order` is a list of module names from default modules plus your custom modules
+- Removing a word in the `order` will remove that module
+- Modules expect all their keys to be functions that return a string
+- Statusline modules can also have strings
+- To highlight a string in statusline/tabufline, wrap it with your highlight group or existing ones from the theme
+
+Here's an example configuration:
+
+<CodeGroup>
+
+```lua UI Configuration
+M.ui = {
+  tabufline = {
+    order = { "treeOffset", "buffers", "tabs", "btns", 'abc' },
+    modules = {
+      -- Custom component example
+      abc = function()
+        return "hi"
+      end,
+    }
+  },
+
+  statusline = {
+    order = {...}, -- check stl/utils.lua file in ui repo 
+    modules = {
+      -- Override default cursor module
+      cursor = function()
+        return "%#BruhHl#" .. " bruh " -- highlight group is BruhHl
+      end
+    },
+
+    -- Separator style and theme
+    theme = "default", -- default, vscode, vscode_colored or minimal
+    separator_style = "default", -- default, round, block or arrow
+  }
+}
+```
+
+</CodeGroup>
+
+<Tip>
+  For more advanced customization, carefully review the default options in [nvconfig.lua](https://github.com/NyxVim/NyxVim/blob/main/lua/nyxconfig.lua#L21) and check the source code of their module order tables in the [ui repo](https://github.com/NyxVim/NyxVim/blob/main/lua/nyxchad/stl/utils.lua).
+</Tip>
+
+## Term (Terminal)
+
+The term module provides functions for managing terminal windows. Here are the key options:
+
+<CodeGroup>
+
+```lua Term Options
+{
+  pos = "sp", -- sp/vsp/float
+  cmd = "neofetch", -- any command (supports function too)
+  size = 0.5, -- works for split windows only
+  hl = "Normal:term,WinSeparator:WinSeparator", -- highlight the term window
+  id =  "any string", -- needed for toggle/runner func
+  float_opts = {}, -- floating window options
+  clear_cmd = true -- needed for runner func
+}
+```
+
+</CodeGroup>
+
+<Info>
+  The `pos` option is required, while others are optional. If optional options are not provided, they will be taken from the `ui.term` table in your chadrc.
+</Info>
+
+### Terminal Window Functions
+
+NyxVim provides several functions for working with terminal windows:
+
+1. **New Window**
+
+   Create new terminal windows:
+
+   ```lua
+   require("nyxvim.term").new { pos = "sp", size = 0.3 }
+   require("nyxvim.term").new { pos = "vsp", cmd = "neofetch"}
+   ```
+
+2. **Toggleable Window**
+
+   Create toggleable terminal windows:
+
+   ```lua
+   require("nyxvim.term").toggle({ 
+     pos = "float", 
+     id = "floatTerm", 
+     float_opts = { border = "double" }
+   })
+   ```
+
+3. **Runner**
+
+   Open a terminal and run a command, with the ability to re-run the command:
+
+   ```lua
+   require("nyxvim.term").runner {
+     pos = "vsp",
+     cmd = "python test.py",
+     id = "ekk",
+     clear_cmd = false
+   }
+   ```
+
+<Tip>
+  The `cmd` option in the runner function can also be a Lua function, allowing for dynamic command generation based on the current file or other conditions.
+</Tip>
+
+## Telescope Extensions
+
+NyxVim's UI plugin includes some useful Telescope extensions:
+
+1. **Theme Picker**: Preview and apply themes from base46
+   - Command: `Telescope themes`
+
+2. **Hidden Term Picker**: Unhide closed terminal windows
+   - Keymap: `<leader>pt`
+   - Command: `Telescope terms`
+
+## Best Practices
+
+1. **Consistency**: Try to maintain a consistent style across your UI components
+2. **Performance**: Be mindful of performance when adding complex custom modules
+3. **Readability**: Use clear and descriptive names for custom modules
+4. **Modularity**: Break down complex UI elements into smaller, reusable modules
+
+## Troubleshooting
+
+If you encounter issues with your UI configuration:
+
+1. Check for syntax errors in your configuration file
+2. Verify that all required plugins are installed and up to date
+3. Use `:checkhealth` to diagnose potential issues
+
+## Need Help?
+
+If you're having trouble with any NyxVim features or have questions:
+
+- Check our [FAQ](/overview/faq) section for common questions and answers.
+- Join our [Discord community](https://nyxb.space) to chat with other NyxVim users.
+- Participate in [GitHub Discussions](https://github.com/NyxVim/NyxVim/discussions) to engage with the NyxVim community, share ideas, and get help.
+- For bug reports or feature requests, open an issue on our [GitHub repository](https://github.com/NyxVim/NyxVim/issues).
